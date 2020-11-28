@@ -1,0 +1,9 @@
+#pycarm directory
+.idea/
+
+#virtual environment
+venv/
+
+#default database
+db.sqlite3
+
