@@ -1,10 +1,8 @@
 import random
-
 from django.contrib.auth import authenticate, login as auth_login
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import render, redirect
-
-# Create your views here.
+from django.template.loader import render_to_string, get_template
 from djang_users import settings
 from users.forms import CustomUserForm
 from users.models import CustomUser
@@ -55,18 +53,33 @@ def password_generator():
 
 def password_recovery(request):
     if request.GET.get('email'):
-        email = request.GET['email']
-        user = CustomUser.objects.filter(email__exact=email)
+        email_user = request.GET['email']
+        user = CustomUser.objects.filter(email__exact=email_user)
         if user.count() != 0:  # mail not exist
             password = password_generator()
             username = user.get().username
-            subject = 'بازیابی رمز عبور'
-            msg = password
-            from_email = settings.EMAIL_HOST_USER
-            send_mail(subject, msg, from_email=from_email, recipient_list=[email, ])
             user = CustomUser.objects.get(username=username)
             user.set_password(password)
             user.save()
+
+            # مقادیر ارسالی مانند رمز عبور جدید و... را در قالب template قرار می دهد.
+            rendered_message = get_template('emails/email_recovery_message.html').render({
+                'password': password, 'username': user.get().first_name
+            })
+            # fail_silently=True
+            # پیش فرض False
+            # اگر مقدار این False باشد، خطاهایی که هنگام ارسال ایمیل می تواند رخ دهد را نشان می دهد.
+            # smtplib.SMTPException
+            #
+            # hmlt_message
+            # اگر متن پیام از طریق این ارسال شود، به صورت یک سند html فرض شده، و تگهای html و کدهای css در ایمیل اجرا خواهند شد
+            # اگر از طریق این ارسال نشود، تگها و کدها خود جزوی از متن پیام اسلی تلقی می شود.
+            send_mail(subject='بازیابی رمز عبور', message='', from_email=settings.EMAIL_HOST_USER,
+                      recipient_list=[email_user, ],
+                      fail_silently=True,
+                      html_message=rendered_message)
+            # نوع فایل متنی را مشخص می کند. در صورتی که مقدار html قرار داده نشود، متن ارسالی حاوی تگ های html نیز خواهد بود.
+            # توجه شود که کدهای css باید به صورت inline نوشته شود.
             return render(request, 'registration/password_recovery.html', {'errors': 'رمز عبور جدید برای شما ارسال شد'})
         else:
             return render(request, 'registration/password_recovery.html', {'errors': 'ایمیل وارد شده ثبت نشده است'})
