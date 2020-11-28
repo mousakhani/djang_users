@@ -114,9 +114,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+# Custom settings
+
+
 # STATIC_ROOT = 'static'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-# Custom settings
 
 # این مدل جایگزین مدل یوزر است.
 # appname.ModelName
@@ -125,3 +127,13 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# email settings
+from djang_users import mail_info
+
+EMAIL_BACKEND = mail_info.email_backend
+EMAIL_USE_SSL = mail_info.email_user_ssl
+EMAIL_PORT = mail_info.email_port
+EMAIL_HOST = mail_info.email_host
+EMAIL_HOST_USER = mail_info.email_host_user
+EMAIL_HOST_PASSWORD = mail_info.email_host_password

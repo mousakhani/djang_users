@@ -13,3 +13,5 @@ git-last-log.log
 
 #for pycharm
 **/__pycache__/**
+
+djang_users/mail_info.py
