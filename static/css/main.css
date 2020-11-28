@@ -3,6 +3,11 @@
     src: url("../fonts/Vazir.woff");
 }
 
+@font-face {
+    font-family: "B Nazanin";
+    src: url("../fonts/b-nazanin.ttf");
+}
+
 body {
     font-family: "vazir";
     direction: rtl;

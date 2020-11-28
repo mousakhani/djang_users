@@ -41,4 +41,7 @@ def login(request):
 
 
 def password_recovery(request):
-    pass
+    if request.GET.get('email'):
+        email = request.GET.get('email')
+        return redirect('users:password_recovery')
+    return  render(request, 'registration/password_recovery.html', {})
