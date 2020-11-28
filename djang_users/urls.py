@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.shortcuts import render
 from django.urls import path, include
 
+
 def home(request):
     return render(request, 'core/_base.html', {})
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name = 'home'),
-path('accounts/', include('users.urls')),
+    path('', home, name='home'),
+    path('accounts/', include('users.urls')),
+    #لاگین از سایت های مهم
+    path('auth/',include('social_django.urls')),
 ]
-
-

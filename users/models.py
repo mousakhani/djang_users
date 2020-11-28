@@ -7,8 +7,9 @@ from django.db import models
 
 class CustomUser(AbstractUser):
     class Meta:
+        pass
         # email became unique
-        unique_together = ('email',)
+        # unique_together = ('email',)
 
     phone = models.CharField(max_length=11, null=True, blank=True)
     location = models.CharField(max_length=127, null=True, blank=True)
@@ -17,4 +18,4 @@ class CustomUser(AbstractUser):
     # USERNAME_FIELD =('phone')
 
     # for reset password
-    REQUIRED_FIELDS = ['email']
+    # REQUIRED_FIELDS = ['email']

@@ -15,3 +15,6 @@ git-last-log.log
 **/__pycache__/**
 
 djang_users/mail_info.py
+
+#github app info
+djang_users/github_keys.py

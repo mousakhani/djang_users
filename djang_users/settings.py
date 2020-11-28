@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    # برای لاگین شدن از سایت های مهمی مثل گوگل، گیتهاب...
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,10 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # مربوط به لاگین از سایت های مهم
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
+
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -137,3 +144,14 @@ EMAIL_PORT = mail_info.email_port
 EMAIL_HOST = mail_info.email_host
 EMAIL_HOST_USER = mail_info.email_host_user
 EMAIL_HOST_PASSWORD = mail_info.email_host_password
+
+# لاگین از سایت های مهم
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.github.GithubOAuth2',
+]
+
+from djang_users import github_keys
+
+SOCIAL_AUTH_GITHUB_KEY = github_keys.Client_ID_Github_key
+SOCIAL_AUTH_GITHUB_SECRET = github_keys.Secret_Key_Github_Secret
