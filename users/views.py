@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -14,7 +14,7 @@ def signup(request):
             password = form.cleaned_data.get('password1')
             form.save()
             user = authenticate(username=username, password=password)
-            login(request, user)
+            auth_login(request, user)
             return redirect('home')
         else:
             errors = (
@@ -24,3 +24,21 @@ def signup(request):
             return render(request, 'registration/signup.html', {'errors': errors})
     else:
         return render(request, 'registration/signup.html', {})
+
+
+def login(request):
+    error = ''
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            error = 'نام کاربری و گذرواژه هم خواند ندارد'
+    return render(request, 'registration/login.html', {'errors': error})
+
+
+def password_recovery(request):
+    pass

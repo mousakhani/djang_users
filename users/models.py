@@ -6,9 +6,15 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
+    class Meta:
+        # email became unique
+        unique_together = ('email',)
+
     phone = models.CharField(max_length=11, null=True, blank=True)
     location = models.CharField(max_length=127, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
 
     # USERNAME_FIELD =('phone')
-    # REQUIRED_FIELDS = ['phone']
+
+    # for reset password
+    REQUIRED_FIELDS = ['email']

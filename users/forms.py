@@ -7,6 +7,7 @@ from users.models import CustomUser
 class CustomUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
+
         fields = UserCreationForm.Meta.fields + ('phone',)
 
     # def clean_password2(self):
