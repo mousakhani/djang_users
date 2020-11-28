@@ -18,7 +18,7 @@ from django.shortcuts import render
 from django.urls import path, include
 
 def home(request):
-    return render(request,'_base.html',{})
+    return render(request, 'core/_base.html', {})
 
 urlpatterns = [
     path('admin/', admin.site.urls),

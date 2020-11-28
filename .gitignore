@@ -9,3 +9,7 @@ db.sqlite3
 
 #save git logs to this file
 git-last-log.log
+
+
+#for pycharm
+**/__pycache__/**
