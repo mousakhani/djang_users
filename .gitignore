@@ -8,4 +8,4 @@ venv/
 db.sqlite3
 
 #save git logs to this file
-git.log
+git-last-log.log

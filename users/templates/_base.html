@@ -1,0 +1,84 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/hover.css' %}">#}
+    {% block css %}
+    {% endblock %}
+    <title>
+        {% block title %}
+            اکانت
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+<nav class="navbar bg-light mt-1">
+    <div class="container-fluid">
+        <ul class="nav pr-0 w-100">
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="#">github.com</a>
+            </li>
+            <li class="nav-item">
+                <input type="text" class="form-control" placeholder="search">
+            </li>
+            <li class="nav-item">
+                <div class="dropdown dropdown-custom">
+                    <a class="nav-link text-danger " href="#" data-toggle="dropdown">خانه</a>
+                    <ul class="dropdown-menu dropdown-content">
+                        <li><a href="#" class="text-decoration-none d-block text-danger ">HTML</a></li>
+                        <li><a href="#" class="text-decoration-none d-block text-danger">CSS</a></li>
+                        <li><a href="#" class="text-decoration-none d-block text-danger">JavaScript</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  " href="#">راهنما</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item mr-auto ">
+                    <label class="nav-link">{{ user.username }}</label>
+                </li>
+                <li class="nav-item  ">
+                    <a class="nav-link" href="{% url 'users:logout' %}">خروج</a>
+                    {% else %}
+                <li class="nav-item mr-auto p-1">
+                    <a class="nav-link" href="{% url 'users:login' %}">ورود</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+{% block main %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>به نام خدا</h1>
+            <p class="text text-justify">
+                این اپ به صورت شخصی برای نشان دادن
+                رزومه های خودم ساخته شده است.
+                و تمامی تکنولوژی های بک اند در آن پیاده سازی خواهد شد.
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+</body>
+
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% block java_script %}
+{% endblock %}
+
+</html>
